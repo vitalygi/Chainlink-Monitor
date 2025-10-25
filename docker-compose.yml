@@ -1,0 +1,48 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: api
+    env_file: ".env"
+    ports:
+      - "$api_port:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - app_net
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: worker
+    env_file: ".env"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - app_net
+    restart: unless-stopped
+
+  redis:
+    image: redis:8
+    container_name: redis
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  redis_data:
+
+networks:
+  app_net:
