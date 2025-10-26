@@ -1,0 +1,10 @@
+feeds:
+  - currency_pair: "ETH/USD"
+    hex_address: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419"
+    decimals: 8
+  - currency_pair: "LINK/ETH"
+    hex_address: "0xbba127a7d2515aB6577204B069502Fc05a10A5B7"
+    decimals: 18
+  - currency_pair: "USDT/ETH"
+    hex_address: "0xEe9F2375b4bdF6387aa8265dD4FB8F16512A1d46"
+    decimals: 18
